@@ -1,42 +1,135 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+*{
+  margin: 0;
+  padding: 0;
+}
+
+:root{
+  --blue: #021040;
+  --lightblue: #05228b;
+  --orange: #f5a201;
+  --white: #c4c4c4;
+  --darkwhite: #8e8e8e;
+}
+
+.App {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--blue);
+}
+
+.App-Header {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.App-Header-Title {
+  font-size: 2rem;
+  color: var(--white);
+}
+
+.App-Header-Modes {
+  display: flex;
+  width: 25%;
+  height: 25%;
+  justify-content: space-between;
+  background-color: var(--lightblue);
+  border-radius: 1.5rem;
+  color: var(--darkwhite);
+  font-size: 0.8rem;
+  list-style: none;
+  font-weight: 600;
+}
+
+.App-Header-Modes li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  height: 100%;
+  width: 33%;
+  border-radius: 1rem;
   text-align: center;
+  cursor: pointer;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.Mode-Active {
+  background-color: var(--orange);
+  color: var(--lightblue);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App-Body {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.App-Body-Timer {
+  position: relative;
+  width: 20%;
+  height: 50%;
+  padding: 1.5rem;
+  background-image: linear-gradient(135deg, var(--blue), var(--lightblue));
+  border-radius: 100%;
+  box-shadow: -15px -15px 45px 2px rgba(255, 255, 255, 0.066);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.card {
-  padding: 2em;
+.App-Body-Timer::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  box-shadow: 15px 15px 45px 2px rgb(0, 0, 0);
 }
 
-.read-the-docs {
-  color: #888;
+.App-Body-Timer::before {
+  content: "";
+  position: absolute;
+  width: 85%;
+  height: 85%;
+  border-radius: 100%;
+  background-color: var(--blue);
+}
+
+.App-Body-Timer-Ring {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.App-Body-Timer-Ring-Circle {
+  fill: none;
+  stroke: none;
+}
+
+.App-Body-Timer-Ring-PathElapsed {
+  stroke-width: 1px;
+  stroke: var(--orange);
+}
+
+.App-Body-Timer-Ring-SVG {
+  transform: scale(-1);
+}
+
+.App-Body-Timer-Ring-Remaining{
+  color: var(--blue);
+  stroke-width: 1px;
+  stroke-linecap: round;
+  transform: rotate(90deg);
+  transform-origin: center;
+  transition: 1s linear all;
+  stroke: currentColor;
 }
