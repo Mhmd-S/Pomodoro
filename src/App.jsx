@@ -5,7 +5,9 @@ function App() {
 
   const [pomoTimer, setPomoTimer] = useState(1200);
   const [pause, setPause] = useState(true);
-  const [timerMode, setTimerMode] = useState(0); // 0 = pomodoro, 1 = short break, 2 = long break
+  const [timerMode, setTimerMode] = useState(1200); // 0 = pomodoro, 1 = short break, 2 = long break
+
+  let leftTime = 0;
 
   const decrementTimer = () => {
     setPomoTimer(pomoTimer-1);
@@ -15,15 +17,15 @@ function App() {
       
     if (mode == 0 && timerMode !== 0){
       setPomoTimer(1200); //1200
-      setTimerMode(0);
+      setTimerMode(1200);
       setPause(true);
     } else if (mode == 1 && timerMode !== 1){
       setPomoTimer(300); // 300
-      setTimerMode(1);
+      setTimerMode(300);
       setPause(true);
     } else if (mode == 2 && timerMode !== 2){
       setPomoTimer(600); // 600
-      setTimerMode(2);
+      setTimerMode(600);
       setPause(true);
     }
   }
@@ -31,6 +33,7 @@ function App() {
   useEffect(()=>{
     if(pause){return;}
     const timerActive = setInterval(decrementTimer, 1000);
+    leftTime = ((300 - pomoTimer) / 283) + " 283";
     return () => clearInterval(timerActive);
   },[decrementTimer])
 
@@ -39,21 +42,21 @@ function App() {
       <div className="App-Header">
         <h1 className="App-Header-Title">pomodoro</h1>
         <ul className="App-Header-Modes">
-          <li className={timerMode == 0 && "Mode-Active"} onClick={()=>handleTimerChange(0)}>Pomodoro</li>
-          <li className={timerMode == 1 && "Mode-Active"} onClick={()=>handleTimerChange(1)}>Short Break</li>
-          <li className={timerMode == 2 && "Mode-Active"} onClick={()=>handleTimerChange(2)}>Long Break</li>
+          <li className={timerMode == 0 ? "Mode-Active" : undefined} onClick={()=>handleTimerChange(0)}>Pomodoro</li>
+          <li className={timerMode == 1 ? "Mode-Active" : undefined} onClick={()=>handleTimerChange(1)}>Short Break</li>
+          <li className={timerMode == 2 ? "Mode-Active" : undefined} onClick={()=>handleTimerChange(2)}>Long Break</li>
         </ul>
       </div>
       <div className="App-Body">
         <div className="App-Body-Timer">
-          <div class="App-Body-Timer-Ring">
-            <svg class="App-Body-Timer-Ring-SVG" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-              <g class="App-Body-Timer-Ring-Circle">
-                <circle class="App-Body-Timer-Ring-PathElapsed" cx="50" cy="51.5" r="42" />
+          <div className="App-Body-Timer-Ring">
+            <svg className="App-Body-Timer-Ring-SVG" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <g className="App-Body-Timer-Ring-Circle">
+                <circle className="App-Body-Timer-Ring-PathElapsed" cx="50" cy="50" r="45" />
                 <path
                   id="base-timer-path-remaining"
-                  stroke-dasharray="283"
-                  class={"App-Body-Timer-Ring-Remaining"}
+                  strokeDasharray={(((timerMode-pomoTimer) / timerMode) * 283).toFixed(0) + " 283"}
+                  className="App-Body-Timer-Ring-Remaining"
                   d="
                   M 50, 50
                   m -45, 0
