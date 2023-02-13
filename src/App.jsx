@@ -7,7 +7,11 @@ function App() {
   const [pause, setPause] = useState(true);
   const [timerMode, setTimerMode] = useState(1200); // 0 = pomodoro, 1 = short break, 2 = long break
 
-  let leftTime = 0;
+  const [viewSettings, setViewSettings] = useState(false);
+
+  const [mainTiming, setMainTiming] = useState(1200);
+  const [sBreak, setSBreak] = useState(300);
+  const [lBreak, setLBreak] = useState(600);
 
   const decrementTimer = () => {
     setPomoTimer(pomoTimer-1);
@@ -33,7 +37,6 @@ function App() {
   useEffect(()=>{
     if(pause){return;}
     const timerActive = setInterval(decrementTimer, 1000);
-    leftTime = ((300 - pomoTimer) / 283) + " 283";
     return () => clearInterval(timerActive);
   },[decrementTimer])
 
@@ -42,10 +45,11 @@ function App() {
       <div className="App-Header">
         <h1 className="App-Header-Title">pomodoro</h1>
         <ul className="App-Header-Modes">
-          <li className={timerMode == 0 ? "Mode-Active" : undefined} onClick={()=>handleTimerChange(0)}>Pomodoro</li>
-          <li className={timerMode == 1 ? "Mode-Active" : undefined} onClick={()=>handleTimerChange(1)}>Short Break</li>
-          <li className={timerMode == 2 ? "Mode-Active" : undefined} onClick={()=>handleTimerChange(2)}>Long Break</li>
+          <li className={timerMode == mainTiming ? "Mode-Active" : undefined} onClick={()=>handleTimerChange(0)}>Pomodoro</li>
+          <li className={timerMode == sBreak ? "Mode-Active" : undefined} onClick={()=>handleTimerChange(1)}>Short Break</li>
+          <li className={timerMode == lBreak ? "Mode-Active" : undefined} onClick={()=>handleTimerChange(2)}>Long Break</li>
         </ul>
+        <img className="Gear-Icon" src="./assets/gear.svg"/>
       </div>
       <div className="App-Body">
         <div className="App-Body-Timer">
@@ -55,7 +59,7 @@ function App() {
                 <circle className="App-Body-Timer-Ring-PathElapsed" cx="50" cy="50" r="45" />
                 <path
                   id="base-timer-path-remaining"
-                  strokeDasharray={(((timerMode-pomoTimer) / timerMode) * 283).toFixed(0) + " 283"}
+                  strokeDasharray={(((timerMode-pomoTimer) / timerMode) * 283).toFixed(1) + " 283"}
                   className="App-Body-Timer-Ring-Remaining"
                   d="
                   M 50, 50
@@ -70,7 +74,39 @@ function App() {
           <div className="App-Body-Timer-Display">
             {(Math.floor(pomoTimer/60)).toLocaleString('en-US', {minimumIntegerDigits: 2,useGrouping: false})+":"+(pomoTimer%60).toLocaleString('en-US', {minimumIntegerDigits: 2,useGrouping: false})}
           </div>
-          <button onClick={()=>{setPause(!pause)}} className="App-Timer-Pause">Pause</button>
+          <img onClick={()=>{setPause(!pause)}} className="App-Timer-Pause" src={pause ? "./assets/action.svg" : "./assets/pause.svg"}></img>
+        </div>
+      </div>
+
+      <div className="App-Settings">
+        
+        <div className="App-Settings-Container">
+          
+          <div className="App-Settings-Header">
+          
+          <h3>Settings</h3>
+            <img src="./assets/close.svg"/>
+          </div>
+          
+          <div className="App-Settings-Body">
+
+            <div className="App-Settings-Body-Section">
+              <label>Main Timer</label>
+              <input type="text"/>
+            </div>
+
+            <div className="App-Settings-Body-Section">
+              <label>Short Break</label>
+             <input type="text"/>
+            </div>
+
+            <div className="App-Settings-Body-Section">
+              < label>Long Break</label>
+               <input type="text"/>
+            </div>
+
+          </div>
+          <button className="App-Settings-Button">Confrim</button>
         </div>
       </div>
     </div>
