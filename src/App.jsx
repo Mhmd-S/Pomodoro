@@ -16,6 +16,11 @@ function App() {
   const [lBreak, setLBreak] = useState(600);
 
   const decrementTimer = () => {
+    if(pomoTimer == 0){
+      setPomoTimer(timerMode)
+      setPause(true);
+      return;
+    }
     setPomoTimer(pomoTimer-1);
   }
 
@@ -68,7 +73,7 @@ function App() {
           <div className="App-Body-Timer-Ring">
             <svg className="App-Body-Timer-Ring-SVG" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
               <g className="App-Body-Timer-Ring-Circle">
-                <circle className="App-Body-Timer-Ring-PathElapsed" cx="50" cy="50" r="45" />
+                <circle className={"App-Body-Timer-Ring-PathElapsed-" + (timerMode == mainTiming ? "Main": timerMode == sBreak ? "Short": "Long")} cx="50" cy="50" r="45" />
                 <path
                   id="base-timer-path-remaining"
                   strokeDasharray={(((timerMode-pomoTimer) / timerMode) * 283).toFixed(1) + " 283"}

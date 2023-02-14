@@ -10,6 +10,7 @@
   --pink: #f1777e;
   --white: #afc5de;
   --darkwhite: #8e8e8e;
+  --babyblue: #149fe5;
   --green: #4BAEAE;
   --darkgreen: #0C5C84;
 }
@@ -135,9 +136,19 @@
   stroke: none;
 }
 
-.App-Body-Timer-Ring-PathElapsed {
+.App-Body-Timer-Ring-PathElapsed-Main {
   stroke-width: 3px;
   stroke: var(--pink);
+}
+
+.App-Body-Timer-Ring-PathElapsed-Short {
+  stroke-width: 3px;
+  stroke: var(--green);
+}
+
+.App-Body-Timer-Ring-PathElapsed-Long {
+  stroke-width: 3px;
+  stroke: var(--babyblue);
 }
 
 .App-Body-Timer-Ring-SVG {
