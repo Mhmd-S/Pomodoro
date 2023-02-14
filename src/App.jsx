@@ -62,9 +62,9 @@ function App() {
       <div className="App-Header">
         <h1 className="App-Header-Title">pomodoro</h1>
         <ul className="App-Header-Modes">
-          <li className={timerMode == mainTiming ? "Mode-Active" : undefined} onClick={()=>handleTimerChange(0)}>Pomodoro</li>
-          <li className={timerMode == sBreak ? "Mode-Active" : undefined} onClick={()=>handleTimerChange(1)}>Short Break</li>
-          <li className={timerMode == lBreak ? "Mode-Active" : undefined} onClick={()=>handleTimerChange(2)}>Long Break</li>
+          <li className={timerMode == mainTiming ? "Mode-Active-Pink" : undefined} onClick={()=>handleTimerChange(0)}>Pomodoro</li>
+          <li className={timerMode == sBreak ? "Mode-Active-Green" : undefined} onClick={()=>handleTimerChange(1)}>Short Break</li>
+          <li className={timerMode == lBreak ? "Mode-Active-Blue" : undefined} onClick={()=>handleTimerChange(2)}>Long Break</li>
         </ul>
         <img className="Gear-Icon" src="./assets/gear.svg" onClick={()=>setViewSettings(true)}/>
       </div>
@@ -76,7 +76,7 @@ function App() {
                 <circle className={"App-Body-Timer-Ring-PathElapsed-" + (timerMode == mainTiming ? "Main": timerMode == sBreak ? "Short": "Long")} cx="50" cy="50" r="45" />
                 <path
                   id="base-timer-path-remaining"
-                  strokeDasharray={(((timerMode-pomoTimer) / timerMode) * 283).toFixed(1) + " 283"}
+                  strokeDasharray={(((timerMode-pomoTimer) / (timerMode-1)) * 283).toFixed(1) + " 283"}
                   className="App-Body-Timer-Ring-Remaining"
                   d="
                   M 50, 50
@@ -95,7 +95,7 @@ function App() {
         </div>
       </div>
 
-      <div className={viewSettings ? "App-Settings" : "settings-OffScreen"}>
+      <div className={viewSettings ? "App-Settings" : "Settings-OffScreen App-Settings"}>
         
         <div className="App-Settings-Container">
           
@@ -109,17 +109,17 @@ function App() {
 
             <div className="App-Settings-Body-Section">
               <label>Main Timer</label>
-              <input type="number" max="120" step="0.1" placeholder={(mainTiming/60).toFixed(2)} onChange={e=>setInputsChange([e.target.value*60, inputsChange[1], inputsChange[2]])}/>
+              <input type="number" min="0.1" max="120" step="0.1" placeholder={(mainTiming/60).toFixed(2)} onChange={e=>setInputsChange([e.target.value*60, inputsChange[1], inputsChange[2]])}/>
             </div>
 
             <div className="App-Settings-Body-Section">
               <label>Short Break</label>
-             <input type="number" max="120" step="0.1" placeholder={(sBreak/60).toFixed(2)} onChange={e=>setInputsChange([inputsChange[1], e.target.value*60, inputsChange[2]])} />
+             <input type="number" min="0.1" max="120" step="0.1" placeholder={(sBreak/60).toFixed(2)} onChange={e=>setInputsChange([inputsChange[1], e.target.value*60, inputsChange[2]])} />
             </div>
 
             <div className="App-Settings-Body-Section">
               < label>Long Break</label>
-               <input  type="number" max="120" step="0.1" placeholder={(lBreak/60).toFixed(2)} onChange={e=>setInputsChange([inputsChange[0], inputsChange[1], e.target.value*60])}/>
+               <input  type="number" min="0.1" max="120" step="0.1" placeholder={(lBreak/60).toFixed(2)} onChange={e=>setInputsChange([inputsChange[0], inputsChange[1], e.target.value*60])}/>
             </div>
             <button type="submit" className="App-Settings-Button">Confrim</button>
           </form>

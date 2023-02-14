@@ -22,6 +22,7 @@
   display: flex;
   flex-direction: column;
   background-color: var(--blue);
+  overflow-y: hidden;
 }
 
 .App-Header {
@@ -74,8 +75,18 @@
   cursor: pointer;
 }
 
-.Mode-Active {
+.Mode-Active-Pink {
   background-color: var(--pink);
+  color: var(--lightblue);
+}
+
+.Mode-Active-Green {
+  background-color: var(--green);
+  color: var(--lightblue);
+}
+
+.Mode-Active-Blue {
+  background-color: var(--babyblue);
   color: var(--lightblue);
 }
 
@@ -191,6 +202,12 @@
   justify-content: center;
   align-items: center;
   background-color: rgba(84, 83, 83, 0.305);
+  transition: top 0.4s ease-in-out;
+}
+
+.Settings-OffScreen{
+  top:100%;
+  transition: top 0.4s ease-in-out;
 }
 
 .App-Settings-Container {
@@ -291,6 +308,3 @@
   background-color: var(--darkgreen);
 }
 
-.settings-OffScreen{
-  display: none;
-}
