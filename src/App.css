@@ -31,7 +31,7 @@
   display: grid;
   grid-template-areas: "t s"
                         "m s";
-  grid-template-columns: 95% 5%;
+  grid-template-columns: 90% 10%;
   grid-template-rows: 50% 50%;
   flex-direction: column;
   align-items: center;
@@ -39,7 +39,7 @@
 
 .App-Header-Title {
   font-size: 2rem;
-  margin-left: 5%;
+  margin-left: 10%;
   color: var(--white);
   grid-area: t;
   justify-self: center; 
@@ -49,7 +49,7 @@
   display: flex;
   width: 25%;
   height: 50%;
-  margin-left: 5%;
+  margin-left: 10%;
   padding: 0.5rem;
   margin-top: 2rem;
   justify-content: space-between;
@@ -307,3 +307,32 @@
   background-color: var(--darkgreen);
 }
 
+@media  screen and (max-width: 480px) {
+  .App-Header-Modes{
+    width: 85%;
+  }
+  
+  .Gear-Icon{
+    width: 1.75rem;
+  }
+
+  .App-Body-Timer {
+    width: 65%;
+  }
+
+  .App-Body-Timer-Display{
+    font-size: 4.5rem;
+  }
+
+  .App-Settings-Container{
+    width: 55%;
+  }
+
+  .App-Settings-Body-Section label {
+    left:33.5%;
+  }
+
+  .App-Settings-Body-Section input {
+    text-align: center;
+  }
+}
