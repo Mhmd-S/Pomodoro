@@ -9,6 +9,8 @@ function App() {
 
   const [viewSettings, setViewSettings] = useState(false);
 
+  const [inputsChange , setInputsChange] = useState([1200, 300, 600])
+
   const [mainTiming, setMainTiming] = useState(1200);
   const [sBreak, setSBreak] = useState(300);
   const [lBreak, setLBreak] = useState(600);
@@ -20,18 +22,28 @@ function App() {
   const handleTimerChange = (mode) => {
       
     if (mode == 0 && timerMode !== 0){
-      setPomoTimer(1200); //1200
-      setTimerMode(1200);
+      setPomoTimer(mainTiming); //1200
+      setTimerMode(mainTiming);
       setPause(true);
     } else if (mode == 1 && timerMode !== 1){
-      setPomoTimer(300); // 300
-      setTimerMode(300);
+      setPomoTimer(sBreak); // 300
+      setTimerMode(sBreak);
       setPause(true);
     } else if (mode == 2 && timerMode !== 2){
-      setPomoTimer(600); // 600
-      setTimerMode(600);
+      setPomoTimer(lBreak); // 600
+      setTimerMode(lBreak);
       setPause(true);
     }
+  }
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    setMainTiming(inputsChange[0])
+    setPomoTimer(inputsChange[0]); //1200
+    setTimerMode(inputsChange[0]);
+    setSBreak(inputsChange[1])
+    setLBreak(inputsChange[2])
+    setViewSettings(false);
   }
 
   useEffect(()=>{
@@ -49,7 +61,7 @@ function App() {
           <li className={timerMode == sBreak ? "Mode-Active" : undefined} onClick={()=>handleTimerChange(1)}>Short Break</li>
           <li className={timerMode == lBreak ? "Mode-Active" : undefined} onClick={()=>handleTimerChange(2)}>Long Break</li>
         </ul>
-        <img className="Gear-Icon" src="./assets/gear.svg"/>
+        <img className="Gear-Icon" src="./assets/gear.svg" onClick={()=>setViewSettings(true)}/>
       </div>
       <div className="App-Body">
         <div className="App-Body-Timer">
@@ -78,35 +90,35 @@ function App() {
         </div>
       </div>
 
-      <div className="App-Settings">
+      <div className={viewSettings ? "App-Settings" : "settings-OffScreen"}>
         
         <div className="App-Settings-Container">
           
           <div className="App-Settings-Header">
           
           <h3>Settings</h3>
-            <img src="./assets/close.svg"/>
+            <img onClick={()=>setViewSettings(false)} src="./assets/close.svg"/>
           </div>
           
-          <div className="App-Settings-Body">
+          <form className="App-Settings-Body" onSubmit={e=>handleFormSubmit(e)}>
 
             <div className="App-Settings-Body-Section">
               <label>Main Timer</label>
-              <input type="text"/>
+              <input type="number" max="120" step="0.1" placeholder={(mainTiming/60).toFixed(2)} onChange={e=>setInputsChange([e.target.value*60, inputsChange[1], inputsChange[2]])}/>
             </div>
 
             <div className="App-Settings-Body-Section">
               <label>Short Break</label>
-             <input type="text"/>
+             <input type="number" max="120" step="0.1" placeholder={(sBreak/60).toFixed(2)} onChange={e=>setInputsChange([inputsChange[1], e.target.value*60, inputsChange[2]])} />
             </div>
 
             <div className="App-Settings-Body-Section">
               < label>Long Break</label>
-               <input type="text"/>
+               <input  type="number" max="120" step="0.1" placeholder={(lBreak/60).toFixed(2)} onChange={e=>setInputsChange([inputsChange[0], inputsChange[1], e.target.value*60])}/>
             </div>
-
-          </div>
-          <button className="App-Settings-Button">Confrim</button>
+            <button type="submit" className="App-Settings-Button">Confrim</button>
+          </form>
+         
         </div>
       </div>
     </div>

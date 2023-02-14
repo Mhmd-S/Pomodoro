@@ -161,7 +161,7 @@
   z-index: 1;
   width: 100%;
   text-align: center;
-  font-size: 6rem;
+  font-size: 5.8rem;
 }
 
 .App-Timer-Pause {
@@ -214,6 +214,7 @@
 
 .App-Settings-Header img {
   width: 65%; 
+  cursor: pointer;
 }
 
 .App-Settings-Body {
@@ -272,8 +273,13 @@
   background-color: var(--green);
   transition: background-color 0.3s ease-in-out;
   border: none;
+
 }
 
 .App-Settings-Button:hover {
   background-color: var(--darkgreen);
+}
+
+.settings-OffScreen{
+  display: none;
 }
